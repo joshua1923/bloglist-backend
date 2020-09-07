@@ -7,14 +7,11 @@ const Blog = require('../models/blog');
 
 beforeEach(async () => {
     await Blog.deleteMany({});
-    console.log('cleared');
 
     const blogObjects = helper.initialBlogs.map(blog => new Blog(blog));
     const promiseArray = blogObjects.map(blog => blog.save());
 
     await Promise.all(promiseArray);
-
-    console.log('done');
 })
 
 test('blogs are returned as json', async () => {
@@ -90,7 +87,20 @@ test('a specific blog can be viewed', async () => {
 })
 
 test('a note can be deleted', async () => {
+    const blogsAtStart = await helper.blogsInDb();
+    const blogToDelete = blogsAtStart[0];
 
+    await api
+        .delete(`/api/blogs/${blogToDelete.id}`)
+        .expect(204);
+
+    const blogsAtEnd = await helper.blogsInDb();
+
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length - 1);
+
+    const titles = blogsAtEnd.map(b => b.title);
+
+    expect(titles).not.toContain(blogToDelete.title);
 })
 
 afterAll(() => {

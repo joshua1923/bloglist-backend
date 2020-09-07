@@ -4,6 +4,7 @@ require('express-async-errors');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const blogRouter = require('./controllers/blogController');
+const userRouter = require('./controllers/userController');
 const logger = require('./utils/logger');
 const config = require('./utils/config');
 const middleware = require('./utils/middleware');
@@ -20,9 +21,10 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology
 
 app.use(cors());
 app.use(express.json());
-app.use(middleware.requestLogger)
+app.use(middleware.requestLogger);
 app.use('/api/blogs', blogRouter);
-app.use(middleware.unknownEndpoint)
-app.use(middleware.errorHandler)
+app.use('/api/users', userRouter);
+app.use(middleware.unknownEndpoint);
+app.use(middleware.errorHandler);
 
 module.exports = app;
