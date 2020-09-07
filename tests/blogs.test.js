@@ -90,7 +90,6 @@ describe('total likes', () => {
 describe('most blogs', () => {
     test('by same author', () => {
         const result = listHelper.mostBlogs(listWithManyBlogs);
-        console.log(result)
         // expect(result).toBe(0)
     })
 })
