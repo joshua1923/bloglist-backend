@@ -9,13 +9,15 @@ const initialBlogs = [
         title: "test",
         author: "Joshua Lindsay",
         url: "www.google.com",
-        likes: 3
+        likes: 3,
+        userId: "5f573c755d61a5514c93cd84"
     },
     {
         title: "jimmy",
         author: "Joshua Lindsay",
         url: "www.facebook.com",
-        likes: 3
+        likes: 3,
+        userId: "5f573c755d61a5514c93cd84"
     }
 ]
 
